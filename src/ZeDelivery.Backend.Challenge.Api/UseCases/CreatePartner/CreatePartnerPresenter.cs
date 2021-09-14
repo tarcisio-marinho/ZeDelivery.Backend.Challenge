@@ -19,7 +19,7 @@ namespace ZeDelivery.Backend.Challenge.Api.UseCases.CreatePartner
             this.logger = logger;
         }
 
-        public async Task PublishPartnerCreated()
+        public async void PublishPartnerCreated()
         {
             logger.LogInformation("Partner created !");
             Result = new OkResult();
@@ -27,17 +27,17 @@ namespace ZeDelivery.Backend.Challenge.Api.UseCases.CreatePartner
 
         // TODO: Receber objeto -> Notification -> genérico, idependente do caso de uso
         // TODO: Criar Default Presenter
-        public async Task PublishValidationErros() 
+        public async void PublishValidationErros() 
         {
             Result = new UnprocessableEntityObjectResult(new { });
         }
 
-        public async Task PublishDuplicatedPartner()
+        public async void PublishDuplicatedPartner()
         {
             Result = new BadRequestObjectResult(new { });
         }
 
-        public async Task PublishInternalServerError()
+        public async void PublishInternalServerError()
         {
             logger.LogInformation("Unknown Error occurred!");
             Result = new BadRequestObjectResult(new { Error = "Unknown Server Error"})

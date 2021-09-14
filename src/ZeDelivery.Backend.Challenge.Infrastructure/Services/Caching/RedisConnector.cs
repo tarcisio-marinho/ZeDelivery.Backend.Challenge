@@ -16,7 +16,7 @@ namespace ZeDelivery.Backend.Challenge.Infrastructure.Services.Caching
         {
             var connectionString = configuration.GetConnectionString("RedisConnection");
 
-            multiplexer = ConnectionMultiplexer.Connect("localhost,port: 6379,password=mysecurepasswordhere"); // ^^^ store and re-use this!!!
+            multiplexer = ConnectionMultiplexer.Connect(connectionString); 
 
             Database = multiplexer.GetDatabase();
         }

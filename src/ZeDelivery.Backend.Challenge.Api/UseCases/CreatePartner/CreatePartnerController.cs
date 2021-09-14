@@ -9,7 +9,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using ZeDelivery.Backend.Challenge.Api.Dtos;
 using ZeDelivery.Backend.Challenge.Api.UseCases.CreatePartner.Contract;
-using ZeDelivery.Backend.Challenge.Infrastructure.Services.Caching;
+using ZeDelivery.Backend.Challenge.Application;
+using ZeDelivery.Backend.Challenge.Application.Services.Caching;
+using ZeDelivery.Backend.Challenge.Application.UseCases.CreatePartner;
 
 namespace ZeDelivery.Backend.Challenge.Api.UseCases.CreatePartner
 {
@@ -21,10 +23,14 @@ namespace ZeDelivery.Backend.Challenge.Api.UseCases.CreatePartner
     {
         private readonly ILogger<CreatePartnerController> logger;
         private readonly CreatePartnerPresenter presenter;
-        public CreatePartnerController(ILogger<CreatePartnerController> logger, CreatePartnerPresenter presenter)
+        private readonly ICacheService cache;
+        private readonly IUseCase<CreatePartnerInput> useCase;
+        public CreatePartnerController(ILogger<CreatePartnerController> logger, CreatePartnerPresenter presenter, ICacheService cache, IUseCase<CreatePartnerInput> useCase)
         {
             this.logger = logger;
             this.presenter = presenter;
+            this.cache = cache;
+            this.useCase = useCase;
         }
 
         [HttpPost]
@@ -36,12 +42,10 @@ namespace ZeDelivery.Backend.Challenge.Api.UseCases.CreatePartner
         {
             logger.LogInformation($"Starting use case for: { request.TradingName } and document: {request.Document}");
 
-            var serialized = MsgPackSerialization.Serialize(request);
+            var input = new CreatePartnerInput();
 
-            var ret = MsgPackSerialization.Deserialize<CreatePartnerRequest>(serialized);
+            await useCase.ExecuteAsync(input);
 
-            await presenter.PublishPartnerCreated();
-            
             return presenter.Result;
         }
     }

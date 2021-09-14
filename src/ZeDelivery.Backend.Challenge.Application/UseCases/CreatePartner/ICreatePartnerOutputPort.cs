@@ -8,9 +8,9 @@ namespace ZeDelivery.Backend.Challenge.Application.UseCases.CreatePartner
 {
     public interface ICreatePartnerOutputPort
     {
-        public Task PublishPartnerCreated();
-        public Task PublishValidationErros();
-        public Task PublishDuplicatedPartner();
-        public Task PublishInternalServerError();
+        public void PublishPartnerCreated();
+        public void PublishValidationErros();
+        public void PublishDuplicatedPartner();
+        public void PublishInternalServerError();
     }
 }
