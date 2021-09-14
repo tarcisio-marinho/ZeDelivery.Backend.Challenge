@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ZeDelivery.Backend.Challenge.Application\ZeDelivery.Backend.Challenge.Application.csproj" />
+    <ProjectReference Include="..\ZeDelivery.Backend.Challenge.Infrastructure\ZeDelivery.Backend.Challenge.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

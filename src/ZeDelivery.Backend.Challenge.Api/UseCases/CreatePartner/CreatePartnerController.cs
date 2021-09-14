@@ -8,6 +8,8 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using ZeDelivery.Backend.Challenge.Api.Dtos;
+using ZeDelivery.Backend.Challenge.Api.UseCases.CreatePartner.Contract;
+using ZeDelivery.Backend.Challenge.Infrastructure.Services.Caching;
 
 namespace ZeDelivery.Backend.Challenge.Api.UseCases.CreatePartner
 {
@@ -30,19 +32,13 @@ namespace ZeDelivery.Backend.Challenge.Api.UseCases.CreatePartner
         [ProducesResponseType(typeof(ValidationErrors), StatusCodes.Status412PreconditionFailed)]
         [ProducesResponseType(typeof(InternalServerError), StatusCodes.Status500InternalServerError)]
         [ProducesResponseType(typeof(BadRequest), StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> CreatePartnerAsync()
+        public async Task<IActionResult> CreatePartnerAsync(CreatePartnerRequest request)
         {
-            logger.LogInformation("asdfsd");
+            logger.LogInformation($"Starting use case for: { request.TradingName } and document: {request.Document}");
 
-            ConnectionMultiplexer redis = ConnectionMultiplexer.Connect("localhost,port: 6379,password=mysecurepasswordhere"); // ^^^ store and re-use this!!!
+            var serialized = MsgPackSerialization.Serialize(request);
 
-            IDatabase db = redis.GetDatabase();
-
-            string value = "abcdefg";
-
-            db.StringSet("mykey", value);
-
-            var output = db.StringGet("mykey");
+            var ret = MsgPackSerialization.Deserialize<CreatePartnerRequest>(serialized);
 
             await presenter.PublishPartnerCreated();
             
