@@ -4,6 +4,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using ZeDelivery.Backend.Challenge.Application;
 using ZeDelivery.Backend.Challenge.Infrastructure;
 
 namespace ZeDelivery.Backend.Challenge.Api
@@ -27,7 +28,8 @@ namespace ZeDelivery.Backend.Challenge.Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ZeDelivery.Backend.Challenge.Api", Version = "v1" });
             })
             .AddPresenters()
-            .AddInfrastructureServices();
+            .AddInfrastructureServices()
+            .AddApplicationValidators();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
