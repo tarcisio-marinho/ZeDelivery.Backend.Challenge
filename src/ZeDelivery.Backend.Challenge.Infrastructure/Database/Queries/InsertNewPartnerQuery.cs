@@ -24,7 +24,7 @@ namespace ZeDelivery.Backend.Challenge.Infrastructure.Database.Queries
 
         public async Task<bool> ExecuteAsync(Partner partner)
         {
-            var sql = 
+            var sql =
                 @"INSERT INTO partner( 
                     `Id`, 
                     `TradingName`, 
@@ -40,9 +40,9 @@ namespace ZeDelivery.Backend.Challenge.Infrastructure.Database.Queries
                     @OwnerName,
                     @Document, 
                     @CoverageAreaType,
-                    @CoverageAreaCoordinates,
+                    ST_GEOMFROMTEXT(@CoverageAreaCoordinates),
                     @AddressType,
-                    @AddressCoordinates
+                    ST_GEOMFROMTEXT(@AddressCoordinates)
                 )";
 
             try
@@ -56,17 +56,18 @@ namespace ZeDelivery.Backend.Challenge.Infrastructure.Database.Queries
                         OwnerName = partner.OwnerName,
                         Document = partner.Document,
                         CoverageAreaType = partner.CoverageArea.Type,
-                        CoverageAreaCoordinates = partner.CoverageArea.Coordinates.ToString(),
+                        CoverageAreaCoordinates = partner.CoverageArea.Coordinates.ToGeometry(),
                         AddressType = partner.Address.Type,
-                        AddressCoordinates = partner.Address.Coordinates.ToString()
+                        AddressCoordinates = partner.Address.Coordinates.ToGeometry()
                     });
+
+                    return result > 0;
                 }
-            }catch(Exception e)
+            }
+            catch(Exception e)
             {
                 return false;
             }
-
-            return true;
         }
     }
 }

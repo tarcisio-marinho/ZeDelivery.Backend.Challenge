@@ -24,7 +24,7 @@ namespace ZeDelivery.Backend.Challenge.Domain.Entities
 
         public string ToGeometry()
         {
-            return $"POINT({Latitude} {Longitude})";
+            return $"POINT({Latitude.ToString().Replace(",", ".")} {Longitude.ToString().Replace(",", ".")})";
         }
     }
 }

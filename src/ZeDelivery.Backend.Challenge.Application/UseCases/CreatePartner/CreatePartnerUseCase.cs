@@ -40,7 +40,10 @@ namespace ZeDelivery.Backend.Challenge.Application.UseCases.CreatePartner
 
             var AddressPoint = GeoJsonParser.ParsePoint(input.Address.Coordinates);
             var CoverageAreaPolygon = GeoJsonParser.ParsePolygon(input.CoverageArea.Coordinates);
-
+           
+            logger.LogInformation(CoverageAreaPolygon.ToGeometry());
+            logger.LogInformation(AddressPoint.ToGeometry());
+           
             var partner = new Partner(
                 input.Id,
                 input.TradingName, 
