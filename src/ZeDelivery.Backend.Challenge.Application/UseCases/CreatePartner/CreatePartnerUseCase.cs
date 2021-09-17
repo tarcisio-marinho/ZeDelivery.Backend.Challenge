@@ -1,10 +1,12 @@
 ﻿using FluentValidation;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ZeDelivery.Backend.Challenge.Application.Shared;
+using ZeDelivery.Backend.Challenge.Domain.Services;
 
 namespace ZeDelivery.Backend.Challenge.Application.UseCases.CreatePartner
 {
@@ -12,10 +14,12 @@ namespace ZeDelivery.Backend.Challenge.Application.UseCases.CreatePartner
     {
         private readonly ICreatePartnerOutputPort outputPort;
         private readonly IValidator<CreatePartnerInput> validator;
-        public CreatePartnerUseCase(ICreatePartnerOutputPort outputPort, IValidator<CreatePartnerInput> validator)
+        private readonly ILogger<CreatePartnerUseCase> logger;
+        public CreatePartnerUseCase(ICreatePartnerOutputPort outputPort, IValidator<CreatePartnerInput> validator, ILogger<CreatePartnerUseCase> logger)
         {
             this.outputPort = outputPort;
             this.validator = validator;
+            this.logger = logger;
         }
 
         public async Task ExecuteAsync(CreatePartnerInput input)
@@ -30,7 +34,11 @@ namespace ZeDelivery.Backend.Challenge.Application.UseCases.CreatePartner
                 return;
             }
 
-            // Tentar inserir novo partner
+            var AddressPoint = GeoJsonParser.ParsePoint(input.Address.Coordinates);
+            var CoverageAreaPolygon = GeoJsonParser.ParsePolygon(input.CoverageArea.Coordinates);
+
+            logger.LogInformation(AddressPoint.ToString());
+            logger.LogInformation(CoverageAreaPolygon.ToString());
 
 
             outputPort.PublishPartnerCreated();

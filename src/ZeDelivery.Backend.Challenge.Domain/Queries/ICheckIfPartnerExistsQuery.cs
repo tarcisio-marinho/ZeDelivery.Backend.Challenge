@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ZeDelivery.Backend.Challenge.Domain.Services.Queries
+namespace ZeDelivery.Backend.Challenge.Domain.Queries
 {
     public interface ICheckIfPartnerExistsQuery
     {

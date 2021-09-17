@@ -105,7 +105,11 @@
         "frameworks": {
           "net5.0": {
             "targetAlias": "net5.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\Users\\franc\\Source\\Repos\\ZeDelivery.Backend.Challenge\\ZeDelivery.Backend.Challenge\\src\\ZeDelivery.Backend.Challenge.Domain\\ZeDelivery.Backend.Challenge.Domain.csproj": {
+                "projectPath": "C:\\Users\\franc\\Source\\Repos\\ZeDelivery.Backend.Challenge\\ZeDelivery.Backend.Challenge\\src\\ZeDelivery.Backend.Challenge.Domain\\ZeDelivery.Backend.Challenge.Domain.csproj"
+              }
+            }
           }
         },
         "warningProperties": {
@@ -123,6 +127,10 @@
               "version": "[10.3.3, )"
             },
             "Microsoft.Extensions.DependencyInjection.Abstractions": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
+            "Microsoft.Extensions.Logging.Abstractions": {
               "target": "Package",
               "version": "[5.0.0, )"
             }

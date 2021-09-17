@@ -6,7 +6,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ZeDelivery.Backend.Challenge.Domain.Services.Queries;
+using ZeDelivery.Backend.Challenge.Domain.Queries;
 
 namespace ZeDelivery.Backend.Challenge.Infrastructure.Database.Queries
 {
@@ -16,7 +16,6 @@ namespace ZeDelivery.Backend.Challenge.Infrastructure.Database.Queries
         public CheckIfPartnerExistsQuery(IConfiguration configuration)
         {
             ConnectionString = configuration.GetConnectionString("SqlConnection"); // TODO: update appsettings
-
         }
 
         public async Task<bool> ExecuteAsync(string Id)

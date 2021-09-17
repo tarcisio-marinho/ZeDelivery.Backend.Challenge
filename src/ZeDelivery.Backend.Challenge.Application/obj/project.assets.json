@@ -19,6 +19,25 @@
         "runtime": {
           "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {}
         }
+      },
+      "Microsoft.Extensions.Logging.Abstractions/5.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.dll": {}
+        }
+      },
+      "ZeDelivery.Backend.Challenge.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "compile": {
+          "bin/placeholder/ZeDelivery.Backend.Challenge.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/ZeDelivery.Backend.Challenge.Domain.dll": {}
+        }
       }
     }
   },
@@ -60,12 +79,39 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "Microsoft.Extensions.Logging.Abstractions/5.0.0": {
+      "sha512": "NxP6ahFcBnnSfwNBi2KH2Oz8Xl5Sm2krjId/jRR3I7teFphwiUoUeZPwTNA21EX+5PtjqmyAvKaOeBXcJjcH/w==",
+      "type": "package",
+      "path": "microsoft.extensions.logging.abstractions/5.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net461/Microsoft.Extensions.Logging.Abstractions.dll",
+        "lib/net461/Microsoft.Extensions.Logging.Abstractions.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.xml",
+        "microsoft.extensions.logging.abstractions.5.0.0.nupkg.sha512",
+        "microsoft.extensions.logging.abstractions.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
+    "ZeDelivery.Backend.Challenge.Domain/1.0.0": {
+      "type": "project",
+      "path": "../ZeDelivery.Backend.Challenge.Domain/ZeDelivery.Backend.Challenge.Domain.csproj",
+      "msbuildProject": "../ZeDelivery.Backend.Challenge.Domain/ZeDelivery.Backend.Challenge.Domain.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net5.0": [
       "FluentValidation >= 10.3.3",
-      "Microsoft.Extensions.DependencyInjection.Abstractions >= 5.0.0"
+      "Microsoft.Extensions.DependencyInjection.Abstractions >= 5.0.0",
+      "Microsoft.Extensions.Logging.Abstractions >= 5.0.0",
+      "ZeDelivery.Backend.Challenge.Domain >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -94,7 +140,11 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\franc\\Source\\Repos\\ZeDelivery.Backend.Challenge\\ZeDelivery.Backend.Challenge\\src\\ZeDelivery.Backend.Challenge.Domain\\ZeDelivery.Backend.Challenge.Domain.csproj": {
+              "projectPath": "C:\\Users\\franc\\Source\\Repos\\ZeDelivery.Backend.Challenge\\ZeDelivery.Backend.Challenge\\src\\ZeDelivery.Backend.Challenge.Domain\\ZeDelivery.Backend.Challenge.Domain.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
@@ -112,6 +162,10 @@
             "version": "[10.3.3, )"
           },
           "Microsoft.Extensions.DependencyInjection.Abstractions": {
+            "target": "Package",
+            "version": "[5.0.0, )"
+          },
+          "Microsoft.Extensions.Logging.Abstractions": {
             "target": "Package",
             "version": "[5.0.0, )"
           }

@@ -540,7 +540,9 @@
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
           "FluentValidation": "10.3.3",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "5.0.0"
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "5.0.0",
+          "Microsoft.Extensions.Logging.Abstractions": "5.0.0",
+          "ZeDelivery.Backend.Challenge.Domain": "1.0.0"
         },
         "compile": {
           "bin/placeholder/ZeDelivery.Backend.Challenge.Application.dll": {}
