@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ZeDelivery.Backend.Challenge.Domain.Entities
 {
-    public class Point
+    public class Point : IGeoJson
     {
         public float Latitude { get; private set; }
         public float Longitude { get; private set; }
@@ -18,6 +18,11 @@ namespace ZeDelivery.Backend.Challenge.Domain.Entities
         }
 
         public override string ToString()
+        {
+            return $"{Latitude.ToString().Replace(",", ".")} {Longitude.ToString().Replace(",", ".")}";
+        }
+
+        public string ToGeometry()
         {
             return $"POINT({Latitude} {Longitude})";
         }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ZeDelivery.Backend.Challenge.Domain.Entities
 {
-    public class Polygon
+    public class Polygon : IGeoJson
     {
         public IList<Point> Points { get; private set; }
         public Polygon(IList<Point> points)
@@ -14,12 +14,9 @@ namespace ZeDelivery.Backend.Challenge.Domain.Entities
             Points = points;
         }
 
-        // TODO: adjust ToString
-        public override string ToString()
+        public string ToGeometry()
         {
-            return $@"POLYGON(
-                    ({string.Join(",", Points)})
-                    )";
+            return $@"POLYGON(({string.Join(",", Points)}))";
         }
     }
 }

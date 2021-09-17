@@ -37,8 +37,8 @@ namespace ZeDelivery.Backend.Challenge.Application.UseCases.CreatePartner
             var AddressPoint = GeoJsonParser.ParsePoint(input.Address.Coordinates);
             var CoverageAreaPolygon = GeoJsonParser.ParsePolygon(input.CoverageArea.Coordinates);
 
-            logger.LogInformation(AddressPoint.ToString());
-            logger.LogInformation(CoverageAreaPolygon.ToString());
+            logger.LogInformation(AddressPoint.ToGeometry());
+            logger.LogInformation(CoverageAreaPolygon.ToGeometry());
 
 
             outputPort.PublishPartnerCreated();

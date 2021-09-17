@@ -54,9 +54,9 @@ namespace ZeDelivery.Backend.Challenge.Infrastructure.Database.Queries
                         OwnerName = partner.OwnerName,
                         Document = partner.Document,
                         CoverageAreaType = partner.CoverageArea.Type,
-                        CoverageAreaCoordinates = partner.CoverageArea.Coordinates,
+                        CoverageAreaCoordinates = partner.CoverageArea.Coordinates.ToString(),
                         AddressType = partner.Address.Type,
-                        AddressCoordinates = partner.Address.Coordinates
+                        AddressCoordinates = partner.Address.Coordinates.ToString()
                     });
                 }
             }catch(Exception e)
