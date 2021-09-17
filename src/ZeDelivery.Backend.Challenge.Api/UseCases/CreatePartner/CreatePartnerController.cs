@@ -42,7 +42,23 @@ namespace ZeDelivery.Backend.Challenge.Api.UseCases.CreatePartner
         {
             logger.LogInformation($"Starting use case for: { request.TradingName } and document: {request.Document}");
 
-            var input = new CreatePartnerInput();
+            var input = new CreatePartnerInput
+            {
+                Id = request?.Id,
+                Document = request?.Document,
+                OwnerName = request?.OwnerName,
+                TradingName = request?.TradingName,
+                Address = new AddressRequestInput
+                {
+                    Coordinates = request?.Address?.Coordinates,
+                    Type = request?.Address?.Type
+                },
+                CoverageArea = new CoverageAreaInput
+                {
+                    Type = request?.CoverageArea?.Type,
+                    Coordinates = request?.CoverageArea?.Coordinates
+                }
+            };
 
             await useCase.ExecuteAsync(input);
 

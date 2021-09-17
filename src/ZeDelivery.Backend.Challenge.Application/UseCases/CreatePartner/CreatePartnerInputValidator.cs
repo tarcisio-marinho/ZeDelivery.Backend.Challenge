@@ -12,6 +12,11 @@ namespace ZeDelivery.Backend.Challenge.Application.UseCases.CreatePartner
         //TODO: add validator logic
         public CreatePartnerInputValidator()
         {
+            RuleFor(input => input)
+                .NotNull()
+                .NotEmpty()
+                .WithMessage($"{nameof(CreatePartnerInput)} cannot be null");
+
             RuleFor(input => input.Id)
                 .NotNull()
                 .NotEmpty()
@@ -48,6 +53,11 @@ namespace ZeDelivery.Backend.Challenge.Application.UseCases.CreatePartner
                .NotEmpty()
                .WithMessage($"{nameof(CreatePartnerInput.Address.Coordinates)} cannot be null");
 
+            RuleForEach(input => input.Address.Coordinates)
+               .NotNull()
+               .NotEmpty()
+               .WithMessage($"{nameof(CreatePartnerInput.Address.Coordinates)} cannot be null");
+
             RuleFor(input => input.CoverageArea.Type)
                .NotNull()
                .NotEmpty()
@@ -57,7 +67,6 @@ namespace ZeDelivery.Backend.Challenge.Application.UseCases.CreatePartner
                .NotNull()
                .NotEmpty()
                .WithMessage($"{nameof(CreatePartnerInput.CoverageArea.Coordinates)} cannot be null");
-
         }
     }
 }

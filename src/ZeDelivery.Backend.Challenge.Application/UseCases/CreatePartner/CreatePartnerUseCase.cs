@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZeDelivery.Backend.Challenge.Application.Shared;
 
 namespace ZeDelivery.Backend.Challenge.Application.UseCases.CreatePartner
 {
@@ -23,9 +24,14 @@ namespace ZeDelivery.Backend.Challenge.Application.UseCases.CreatePartner
 
             if (!validated.IsValid)
             {
+                var notification = new Notification(validated.Errors);
                 // TODO: publish validation errors
-               outputPort.PublishValidationErros();
+               outputPort.PublishValidationErros(notification);
+                return;
             }
+
+            // Tentar inserir novo partner
+
 
             outputPort.PublishPartnerCreated();
         }

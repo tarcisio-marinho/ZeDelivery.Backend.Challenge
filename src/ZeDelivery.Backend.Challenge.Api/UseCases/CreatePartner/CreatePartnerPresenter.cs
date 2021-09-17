@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ZeDelivery.Backend.Challenge.Application.Shared;
 using ZeDelivery.Backend.Challenge.Application.UseCases.CreatePartner;
 
 namespace ZeDelivery.Backend.Challenge.Api.UseCases.CreatePartner
@@ -17,6 +18,7 @@ namespace ZeDelivery.Backend.Challenge.Api.UseCases.CreatePartner
         public CreatePartnerPresenter(ILogger<CreatePartnerPresenter> logger)
         {
             this.logger = logger;
+            logger.LogInformation($"instanciado presenter: {Guid.NewGuid().ToString()}");
         }
 
         public async void PublishPartnerCreated()
@@ -25,11 +27,9 @@ namespace ZeDelivery.Backend.Challenge.Api.UseCases.CreatePartner
             Result = new OkResult();
         }
 
-        // TODO: Receber objeto -> Notification -> genérico, idependente do caso de uso
-        // TODO: Criar Default Presenter
-        public async void PublishValidationErros() 
+        public async void PublishValidationErros(Notification notification) 
         {
-            Result = new UnprocessableEntityObjectResult(new { });
+            Result = new UnprocessableEntityObjectResult(new { Errors = notification.GetErrors() });
         }
 
         public async void PublishDuplicatedPartner()

@@ -17,5 +17,12 @@ namespace ZeDelivery.Backend.Challenge.Application
             
             return services;
         }
+
+        public static IServiceCollection AddUseCases(this IServiceCollection services)
+        {
+            services.AddScoped<IUseCase<CreatePartnerInput>, CreatePartnerUseCase>();
+
+            return services;
+        }
     }
 }

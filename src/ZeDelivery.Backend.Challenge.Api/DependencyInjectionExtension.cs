@@ -12,8 +12,10 @@ namespace ZeDelivery.Backend.Challenge.Api
     {
         public static IServiceCollection AddPresenters(this IServiceCollection services)
         {
+
             services.AddScoped<ICreatePartnerOutputPort, CreatePartnerPresenter>();
             services.AddScoped<CreatePartnerPresenter>();
+            services.AddScoped(typeof(ICreatePartnerOutputPort), sp => sp.GetRequiredService<CreatePartnerPresenter>());
 
             return services;
         }
