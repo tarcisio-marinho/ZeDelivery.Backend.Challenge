@@ -26,10 +26,14 @@ namespace ZeDelivery.Backend.Challenge.Infrastructure.Services.Caching
                 var db = connection.Database;
 
                 var output = await db.StringGetAsync(key);
+                if(!output.IsNull)
+                {
+                    var deserializedObject = MsgPackSerialization.Deserialize<T>(output); // TODO: fix deserialization to Partner constructor
 
-                var deserializedObject = MsgPackSerialization.Deserialize<T>(output); // TODO: fix deserialization to Partner constructor
+                    return new CacheEntry<T>(deserializedObject, true);
+                }
 
-                return new CacheEntry<T>(deserializedObject, true);
+                return new CacheEntry<T>(default, false);
             }
             catch (Exception e)
             {

@@ -16,16 +16,16 @@ namespace ZeDelivery.Backend.Challenge.Domain.Entities
 
         public IList<IList<float>> ToList()
         {
-            var lista = new List<IList<float>>();
+            var list = new List<IList<float>>();
 
             Points.ToList().ForEach(point => {
                 var pointList = new List<float>();
                 pointList.Add(point.Latitude);
                 pointList.Add(point.Longitude);
-                lista.Add(pointList);
+                list.Add(pointList);
             });
 
-            return lista;
+            return list;
         }
 
         public string ToGeometry()

@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ using ZeDelivery.Backend.Challenge.Application.Services.Caching;
 using ZeDelivery.Backend.Challenge.Application.Shared;
 using ZeDelivery.Backend.Challenge.Application.UseCases.FindPartner.Input;
 using ZeDelivery.Backend.Challenge.Domain.Entities;
+using ZeDelivery.Backend.Challenge.Domain.Entities.Dtos;
 using ZeDelivery.Backend.Challenge.Domain.Queries;
 
 namespace ZeDelivery.Backend.Challenge.Application.UseCases.FindPartner
@@ -41,11 +43,11 @@ namespace ZeDelivery.Backend.Challenge.Application.UseCases.FindPartner
                 return;
             }
 
-            var cacheResponse = await cacheService.TryGetAsync<Partner>(input.Id);
+            var partnerDtoResponse = await cacheService.TryGetAsync<PartnerDto>(input.Id);
 
-            if (cacheResponse.Success)
+            if (partnerDtoResponse.Success)
             {
-                outputPort.PublishPartnerFound(cacheResponse.Value);
+                outputPort.PublishPartnerFound(partnerDtoResponse.Value.ToPartner());
                 return;
             }
 
@@ -57,7 +59,7 @@ namespace ZeDelivery.Backend.Challenge.Application.UseCases.FindPartner
                 return;
             }
 
-            _ = cacheService.TrySetAsync(input.Id, partnerResponse);
+            _ = cacheService.TrySetAsync(input.Id, partnerResponse.ToDto());
 
             outputPort.PublishPartnerFound(partnerResponse);
 

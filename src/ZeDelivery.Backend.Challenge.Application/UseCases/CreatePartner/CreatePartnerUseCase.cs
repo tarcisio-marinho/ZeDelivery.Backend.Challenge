@@ -74,7 +74,7 @@ namespace ZeDelivery.Backend.Challenge.Application.UseCases.CreatePartner
             var insertionSuccess = await insertNewPartnerquery.ExecuteAsync(partner);
             if (insertionSuccess)
             {
-                _ = cacheService.TrySetAsync(input.Id, partner);
+                _ = cacheService.TrySetAsync(input.Id, partner.ToDto());
 
                 outputPort.PublishPartnerCreated();
                 return;

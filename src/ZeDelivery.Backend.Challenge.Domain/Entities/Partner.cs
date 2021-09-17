@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZeDelivery.Backend.Challenge.Domain.Entities.Dtos;
 using ZeDelivery.Backend.Challenge.Domain.Services;
 
 namespace ZeDelivery.Backend.Challenge.Domain.Entities
@@ -35,5 +36,20 @@ namespace ZeDelivery.Backend.Challenge.Domain.Entities
         public string Document { get; private set; }
         public CoverageArea CoverageArea { get; private set; }
         public Address Address { get; private set; }
+
+        public PartnerDto ToDto()
+        {
+            return new PartnerDto
+            {
+                Id = Id,
+                TradingName = TradingName,
+                OwnerName = OwnerName,
+                Document = Document,
+                CoverageAreaCoordinates = CoverageArea.Coordinates,
+                CoverageAreaType = CoverageArea.Type,
+                AddressCoordinates = Address.Coordinates,
+                AddressType = Address.Type
+            };
+        }
     }
 }
