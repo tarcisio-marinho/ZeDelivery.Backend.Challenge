@@ -23,7 +23,25 @@ namespace ZeDelivery.Backend.Challenge.Api.UseCases.FindPartner
 
         public void PublishPartnerFound(Partner partner)
         {
-            Result = new OkObjectResult(new { Partner = JsonConvert.SerializeObject(partner) });
+            var response = new
+            {
+                Id = partner.Id,
+                TradingName = partner.TradingName,
+                OwnerName = partner.OwnerName,
+                Document = partner.Document,
+                CoverageArea = new
+                {
+                    Type = partner.CoverageArea.Type,
+                    Coordinates = new[] { new[] { partner.CoverageArea.Coordinates.ToList() } } 
+                },
+                Address = new
+                {
+                    Type = partner.Address.Type,
+                    Coordinates = new[] { partner.Address.Coordinates.Latitude, partner.Address.Coordinates.Longitude }
+                }
+            };
+
+            Result = new OkObjectResult(response);
         }
 
         public async void PublishValidationErros(Notification notification)

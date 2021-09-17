@@ -14,6 +14,20 @@ namespace ZeDelivery.Backend.Challenge.Domain.Entities
             Points = points;
         }
 
+        public IList<IList<float>> ToList()
+        {
+            var lista = new List<IList<float>>();
+
+            Points.ToList().ForEach(point => {
+                var pointList = new List<float>();
+                pointList.Add(point.Latitude);
+                pointList.Add(point.Longitude);
+                lista.Add(pointList);
+            });
+
+            return lista;
+        }
+
         public string ToGeometry()
         {
             return $@"POLYGON(({string.Join(",", Points)}))";
