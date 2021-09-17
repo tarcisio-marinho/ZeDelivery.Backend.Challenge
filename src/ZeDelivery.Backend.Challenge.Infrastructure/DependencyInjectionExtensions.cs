@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ZeDelivery.Backend.Challenge.Application.Services.Caching;
+using ZeDelivery.Backend.Challenge.Domain.Queries;
+using ZeDelivery.Backend.Challenge.Infrastructure.Database.Queries;
 using ZeDelivery.Backend.Challenge.Infrastructure.Services.Caching;
 
 namespace ZeDelivery.Backend.Challenge.Infrastructure
@@ -15,6 +17,12 @@ namespace ZeDelivery.Backend.Challenge.Infrastructure
         {
             services.AddScoped<ICacheService, CacheService>();
             services.AddSingleton<RedisConnector>();
+            return services;
+        }
+
+        public static IServiceCollection AddQueries(this IServiceCollection services)
+        {
+            services.AddScoped<IInsertNewPartnerQuery, InsertNewPartnerQuery>();
             return services;
         }
     }

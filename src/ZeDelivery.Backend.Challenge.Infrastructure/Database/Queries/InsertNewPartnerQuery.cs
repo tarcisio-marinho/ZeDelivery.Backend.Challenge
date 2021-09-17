@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Microsoft.Extensions.Configuration;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -8,10 +9,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ZeDelivery.Backend.Challenge.Domain.Entities;
+using ZeDelivery.Backend.Challenge.Domain.Queries;
 
 namespace ZeDelivery.Backend.Challenge.Infrastructure.Database.Queries
 {
-    public class InsertNewPartnerQuery
+    public class InsertNewPartnerQuery : IInsertNewPartnerQuery
     {
         private readonly string ConnectionString;
 
@@ -45,9 +47,9 @@ namespace ZeDelivery.Backend.Challenge.Infrastructure.Database.Queries
 
             try
             {
-                using (var db = new SqlConnection(ConnectionString))
+                using (var db = new MySqlConnection(ConnectionString))
                 {
-                    var result = db.Execute(sql, new
+                    var result = await db.ExecuteAsync(sql, new
                     {
                         Id = partner.Id,
                         TradingName = partner.TradingName,

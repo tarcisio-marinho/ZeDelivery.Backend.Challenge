@@ -22,11 +22,12 @@ namespace ZeDelivery.Backend.Challenge.Application.UseCases.CreatePartner
                 .NotEmpty()
                 .WithMessage($"{nameof(CreatePartnerInput.Id)} cannot be null");
 
-
             RuleFor(input => input.OwnerName)
                 .NotNull()
                 .NotEmpty()
-                .WithMessage($"{nameof(CreatePartnerInput.OwnerName)} cannot be null");
+                .WithMessage($"{nameof(CreatePartnerInput.OwnerName)} cannot be null")
+                .MaximumLength(255)
+                .WithMessage($"{nameof(CreatePartnerInput.OwnerName)} wrong length");
 
 
             RuleFor(input => input.Document)
@@ -40,13 +41,16 @@ namespace ZeDelivery.Backend.Challenge.Application.UseCases.CreatePartner
             RuleFor(input => input.TradingName)
                 .NotNull()
                 .NotEmpty()
-                .WithMessage($"{nameof(CreatePartnerInput.TradingName)} cannot be null");
-
+                .WithMessage($"{nameof(CreatePartnerInput.TradingName)} cannot be null")
+                .MaximumLength(255)
+                .WithMessage($"{nameof(CreatePartnerInput.TradingName)} wrong length");
 
             RuleFor(input => input.Address.Type)
                 .NotNull()
                 .NotEmpty()
-                .WithMessage($"{nameof(CreatePartnerInput.Address.Type)} cannot be null");
+                .WithMessage($"{nameof(CreatePartnerInput.Address.Type)} cannot be null")
+                .MaximumLength(255)
+                .WithMessage($"{nameof(CreatePartnerInput.Address.Type)} wrong length");
 
             RuleFor(input => input.Address.Coordinates)
                .NotNull()
@@ -61,7 +65,9 @@ namespace ZeDelivery.Backend.Challenge.Application.UseCases.CreatePartner
             RuleFor(input => input.CoverageArea.Type)
                .NotNull()
                .NotEmpty()
-               .WithMessage($"{nameof(CreatePartnerInput.CoverageArea.Type)} cannot be null");
+               .WithMessage($"{nameof(CreatePartnerInput.CoverageArea.Type)} cannot be null")
+               .MaximumLength(255)
+                .WithMessage($"{nameof(CreatePartnerInput.CoverageArea.Type)} wrong length");
 
             RuleFor(input => input.CoverageArea.Coordinates)
                .NotNull()
