@@ -24,6 +24,8 @@ namespace ZeDelivery.Backend.Challenge.Infrastructure
         {
             services.AddScoped<IInsertNewPartnerQuery, InsertNewPartnerQuery>();
             services.AddScoped<ICheckIfPartnerExistsQuery, CheckIfPartnerExistsQuery>();
+            services.AddScoped<IFindPartnerByIdQuery, FindPartnerByIdQuery>();
+
             return services;
         }
     }

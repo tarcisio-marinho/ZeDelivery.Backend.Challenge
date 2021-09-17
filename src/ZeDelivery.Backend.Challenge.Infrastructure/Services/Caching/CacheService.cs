@@ -46,7 +46,9 @@ namespace ZeDelivery.Backend.Challenge.Infrastructure.Services.Caching
 
                 var packedMessage = MsgPackSerialization.Serialize(value);
                 
-                await db.StringSetAsync(key, packedMessage);
+                var expiration = DateTime.UtcNow.AddMinutes(30);
+
+                await db.StringSetAsync(key, packedMessage, TimeSpan.FromTicks(expiration.Ticks));
             }
             catch (Exception e)
             {

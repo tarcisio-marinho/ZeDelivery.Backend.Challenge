@@ -23,13 +23,11 @@ namespace ZeDelivery.Backend.Challenge.Api.UseCases.CreatePartner
     {
         private readonly ILogger<CreatePartnerController> logger;
         private readonly CreatePartnerPresenter presenter;
-        private readonly ICacheService cache;
         private readonly IUseCase<CreatePartnerInput> useCase;
-        public CreatePartnerController(ILogger<CreatePartnerController> logger, CreatePartnerPresenter presenter, ICacheService cache, IUseCase<CreatePartnerInput> useCase)
+        public CreatePartnerController(ILogger<CreatePartnerController> logger, CreatePartnerPresenter presenter, IUseCase<CreatePartnerInput> useCase)
         {
             this.logger = logger;
             this.presenter = presenter;
-            this.cache = cache;
             this.useCase = useCase;
         }
 

@@ -19,7 +19,7 @@ namespace ZeDelivery.Backend.Challenge.Infrastructure.Database.Queries
 
         public InsertNewPartnerQuery(IConfiguration configuration)
         {
-            ConnectionString = configuration.GetConnectionString("SqlConnection"); // TODO: update appsettings
+            ConnectionString = configuration.GetConnectionString("SqlConnection"); 
         }
 
         public async Task<bool> ExecuteAsync(Partner partner)

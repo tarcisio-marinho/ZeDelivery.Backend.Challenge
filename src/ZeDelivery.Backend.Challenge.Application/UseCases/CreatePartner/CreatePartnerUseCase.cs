@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZeDelivery.Backend.Challenge.Application.Services.Caching;
 using ZeDelivery.Backend.Challenge.Application.Shared;
 using ZeDelivery.Backend.Challenge.Domain.Entities;
 using ZeDelivery.Backend.Challenge.Domain.Queries;
@@ -19,18 +20,21 @@ namespace ZeDelivery.Backend.Challenge.Application.UseCases.CreatePartner
         private readonly ILogger<CreatePartnerUseCase> logger;
         private readonly IInsertNewPartnerQuery insertNewPartnerquery;
         private readonly ICheckIfPartnerExistsQuery checkIfPartnerExistsquery;
+        private readonly ICacheService cacheService;
         public CreatePartnerUseCase(
-            ICreatePartnerOutputPort outputPort, 
-            IValidator<CreatePartnerInput> validator, 
-            ILogger<CreatePartnerUseCase> logger, 
-            IInsertNewPartnerQuery insertNewPartnerquery, 
-            ICheckIfPartnerExistsQuery checkIfPartnerExistsquery)
+            ICreatePartnerOutputPort outputPort,
+            IValidator<CreatePartnerInput> validator,
+            ILogger<CreatePartnerUseCase> logger,
+            IInsertNewPartnerQuery insertNewPartnerquery,
+            ICheckIfPartnerExistsQuery checkIfPartnerExistsquery, 
+            ICacheService cacheService)
         {
             this.outputPort = outputPort;
             this.validator = validator;
             this.logger = logger;
             this.insertNewPartnerquery = insertNewPartnerquery;
             this.checkIfPartnerExistsquery = checkIfPartnerExistsquery;
+            this.cacheService = cacheService;
         }
 
         public async Task ExecuteAsync(CreatePartnerInput input)
@@ -44,8 +48,7 @@ namespace ZeDelivery.Backend.Challenge.Application.UseCases.CreatePartner
                 return;
             }
 
-
-            var partnerExists = await checkIfPartnerExistsquery.ExecuteAsync(input.Id);
+            var partnerExists = await checkIfPartnerExistsquery.ExecuteAsync(input.Id); // TODO: check for Document also
             if (partnerExists)
             {
                 logger.LogDebug($"Partner {input.Id} already registered !");
@@ -68,10 +71,16 @@ namespace ZeDelivery.Backend.Challenge.Application.UseCases.CreatePartner
                 new Address(AddressPoint, input.Address.Type)
             );
 
-            var ret = await insertNewPartnerquery.ExecuteAsync(partner);
+            var insertionSuccess = await insertNewPartnerquery.ExecuteAsync(partner);
+            if (insertionSuccess)
+            {
+                _ = cacheService.TrySetAsync(input.Id, partner);
 
+                outputPort.PublishPartnerCreated();
+                return;
+            }
 
-            outputPort.PublishPartnerCreated();
+            outputPort.PublishInternalServerError();
         }
     }
 }
