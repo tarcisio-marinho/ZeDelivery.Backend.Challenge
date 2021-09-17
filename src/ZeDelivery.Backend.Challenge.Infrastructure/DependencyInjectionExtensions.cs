@@ -23,6 +23,7 @@ namespace ZeDelivery.Backend.Challenge.Infrastructure
         public static IServiceCollection AddQueries(this IServiceCollection services)
         {
             services.AddScoped<IInsertNewPartnerQuery, InsertNewPartnerQuery>();
+            services.AddScoped<ICheckIfPartnerExistsQuery, CheckIfPartnerExistsQuery>();
             return services;
         }
     }

@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Microsoft.Extensions.Configuration;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -15,26 +16,34 @@ namespace ZeDelivery.Backend.Challenge.Infrastructure.Database.Queries
         private readonly string ConnectionString;
         public CheckIfPartnerExistsQuery(IConfiguration configuration)
         {
-            ConnectionString = configuration.GetConnectionString("SqlConnection"); // TODO: update appsettings
+            ConnectionString = configuration.GetConnectionString("SqlConnection"); 
         }
 
-        public async Task<bool> ExecuteAsync(string Id)
+        public async Task<bool> ExecuteAsync(string id)
         {
 
-            var query = @"
+            var sql = @"
                         SELECT 
-                            TOP (1) Id
-                        FROM tabela
-                        where Id = @Id ";
+                            *
+                        FROM partner
+                        where Id = @Id"; // TODO: add indexes at database creation
 
-            using (var connection = new SqlConnection(ConnectionString))
+            try
             {
-                var result = connection.Query(query).FirstOrDefault();
+                using (var db = new MySqlConnection(ConnectionString))
+                {
+                    var result = await db.QueryAsync(sql, new
+                    {
+                        Id = id,
+                    });
 
+                    return result.Any();
+                }
             }
-
-
-            return true;
+            catch (Exception e)
+            {
+                return false;
+            }
         }
     }
 }

@@ -34,7 +34,7 @@ namespace ZeDelivery.Backend.Challenge.Api.UseCases.CreatePartner
 
         public async void PublishDuplicatedPartner()
         {
-            Result = new BadRequestObjectResult(new { });
+            Result = new BadRequestObjectResult(new { Error = "Partner already registered!" });
         }
 
         public async void PublishInternalServerError()
