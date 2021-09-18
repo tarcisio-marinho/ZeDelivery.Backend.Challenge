@@ -34,11 +34,11 @@ namespace ZeDelivery.Backend.Challenge.Application.UseCases.FindPartner
 
         public async Task ExecuteAsync(FindPartnerInput input)
         {
-            var inputValidatoin = await validator.ValidateAsync(input);
+            var inputValidation = await validator.ValidateAsync(input);
 
-            if (!inputValidatoin.IsValid)
+            if (!inputValidation.IsValid)
             {
-                var notification = new Notification(inputValidatoin.Errors);
+                var notification = new Notification(inputValidation.Errors);
                 outputPort.PublishValidationErros(notification);
                 return;
             }

@@ -4,6 +4,7 @@ using ZeDelivery.Backend.Challenge.Application.Services.Caching;
 using ZeDelivery.Backend.Challenge.Application.Shared;
 using ZeDelivery.Backend.Challenge.Application.UseCases.SearchNearestPartner.Input;
 using ZeDelivery.Backend.Challenge.Domain.Entities;
+using ZeDelivery.Backend.Challenge.Domain.Entities.Dtos;
 using ZeDelivery.Backend.Challenge.Domain.Queries;
 
 namespace ZeDelivery.Backend.Challenge.Application.UseCases.SearchNearestPartner
@@ -36,11 +37,29 @@ namespace ZeDelivery.Backend.Challenge.Application.UseCases.SearchNearestPartner
                 outputPort.PublishValidationErros(notification);
                 return;
             }
+
+            var cacheKey = $"{input.Latitude}{input.Longitude}";
+            // TODO: implementar cenário caso não ache nenhum parceiro perto
+
+            var cachedPartner = await cacheService.TryGetAsync<PartnerDto>(cacheKey);
             
-            var ret = await nearestPartnerQuery.ExecuteAsync(new Point(input.Latitude, input.Longitude));
+            if (cachedPartner.Success)
+            {
+                outputPort.PublishNearestPartner(cachedPartner.Value.ToPartner());
+                return;
+            }
 
+            var partner = await nearestPartnerQuery.ExecuteAsync(new Point(input.Latitude, input.Longitude));
+            
+            if(partner is null)
+            {
+                outputPort.PublishNoNearestPartnerFound();
+                return;
+            }
 
-            outputPort.PublishNearestPartner(ret);
+            _ = cacheService.TrySetAsync(cacheKey, partner.ToDto());
+
+            outputPort.PublishNearestPartner(partner);
         }
     }
 }

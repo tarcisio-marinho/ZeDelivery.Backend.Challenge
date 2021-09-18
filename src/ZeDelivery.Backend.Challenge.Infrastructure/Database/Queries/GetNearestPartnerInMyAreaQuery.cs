@@ -32,7 +32,7 @@ namespace ZeDelivery.Backend.Challenge.Infrastructure.Database.Queries
                             AddressType,
                             ST_AsText(AddressCoordinates) as AddressCoordinates
                         from partner 
-                        where !st_contains(CoverageAreaCoordinates, pointfromtext(@Point))
+                        where st_contains(CoverageAreaCoordinates, pointfromtext(@Point))
                         ORDER BY st_distance_sphere(pointfromtext(@Point), AddressCoordinates) ASC
                         LIMIT 1;
                     ";
