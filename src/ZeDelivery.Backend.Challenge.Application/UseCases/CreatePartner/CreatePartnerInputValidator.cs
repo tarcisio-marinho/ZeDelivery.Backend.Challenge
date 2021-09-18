@@ -9,7 +9,6 @@ namespace ZeDelivery.Backend.Challenge.Application.UseCases.CreatePartner
 {
     public class CreatePartnerInputValidator : AbstractValidator<CreatePartnerInput>
     {
-        //TODO: add validator logic
         public CreatePartnerInputValidator()
         {
             RuleFor(input => input)

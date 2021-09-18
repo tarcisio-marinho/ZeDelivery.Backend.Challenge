@@ -32,11 +32,11 @@ namespace ZeDelivery.Backend.Challenge.Api.UseCases.SearchNearestPartner
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ValidationErrors), StatusCodes.Status412PreconditionFailed)]
         [ProducesResponseType(typeof(InternalServerError), StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> CreatePartnerAsync(float latitude, float longitude)
+        public async Task<IActionResult> SearchPartnerAsync(float latitude, float longitude)
         {
             logger.LogInformation($"Starting use case for lat: {latitude} and long: {longitude}");
 
-            var input = new SearchNearestPartnerInput { };
+            var input = new SearchNearestPartnerInput { Latitude = latitude, Longitude = longitude };
 
             await useCase.ExecuteAsync(input);
 

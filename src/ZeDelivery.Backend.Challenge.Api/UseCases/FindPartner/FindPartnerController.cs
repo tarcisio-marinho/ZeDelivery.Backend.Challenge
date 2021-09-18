@@ -33,7 +33,7 @@ namespace ZeDelivery.Backend.Challenge.Api.UseCases.FindPartner
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ValidationErrors), StatusCodes.Status412PreconditionFailed)]
         [ProducesResponseType(typeof(InternalServerError), StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> CreatePartnerAsync(string id)
+        public async Task<IActionResult> FindPartnerAsync(string id)
         {
             logger.LogInformation($"Starting use case for Id: {id}");
 

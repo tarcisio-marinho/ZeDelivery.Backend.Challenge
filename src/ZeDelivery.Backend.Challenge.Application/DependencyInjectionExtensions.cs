@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using ZeDelivery.Backend.Challenge.Application.UseCases.CreatePartner;
 using ZeDelivery.Backend.Challenge.Application.UseCases.FindPartner;
 using ZeDelivery.Backend.Challenge.Application.UseCases.FindPartner.Input;
+using ZeDelivery.Backend.Challenge.Application.UseCases.SearchNearestPartner;
+using ZeDelivery.Backend.Challenge.Application.UseCases.SearchNearestPartner.Input;
 
 namespace ZeDelivery.Backend.Challenge.Application
 {
@@ -17,6 +19,7 @@ namespace ZeDelivery.Backend.Challenge.Application
         {
             services.AddScoped<IValidator<CreatePartnerInput>, CreatePartnerInputValidator>();
             services.AddScoped<IValidator<FindPartnerInput>, FindPartnerInputValidator>();
+            services.AddScoped<IValidator<SearchNearestPartnerInput>, SearchNearestPartnerInputValidator>();
 
             return services;
         }
@@ -25,6 +28,7 @@ namespace ZeDelivery.Backend.Challenge.Application
         {
             services.AddScoped<IUseCase<CreatePartnerInput>, CreatePartnerUseCase>();
             services.AddScoped<IUseCase<FindPartnerInput>, FindPartnerUseCase>();
+            services.AddScoped<IUseCase<SearchNearestPartnerInput>, SearchNearestPartnerUseCase>();
 
             return services;
         }

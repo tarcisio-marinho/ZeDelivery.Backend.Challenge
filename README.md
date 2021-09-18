@@ -32,6 +32,7 @@ CREATE TABLE `partner` (
 );
 ```
 
+Para realiza as queries, decidi utilizar o framework [Dapper](https://dapper-tutorial.net).
 
 
 # Application Architecture
