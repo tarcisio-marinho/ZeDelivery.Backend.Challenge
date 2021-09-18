@@ -53,7 +53,7 @@ namespace ZeDelivery.Backend.Challenge.Application.UseCases.FindPartner
 
             var partnerResponse = await findPartnerQuery.ExecuteAsync(input.Id);
 
-            if(partnerResponse == null)
+            if(partnerResponse is null)
             {
                 outputPort.PublishPartnerNotFound();
                 return;

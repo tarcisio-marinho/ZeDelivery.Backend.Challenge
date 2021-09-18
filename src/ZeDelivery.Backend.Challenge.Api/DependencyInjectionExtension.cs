@@ -5,8 +5,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using ZeDelivery.Backend.Challenge.Api.UseCases.CreatePartner;
 using ZeDelivery.Backend.Challenge.Api.UseCases.FindPartner;
+using ZeDelivery.Backend.Challenge.Api.UseCases.SearchNearestPartner;
 using ZeDelivery.Backend.Challenge.Application.UseCases.CreatePartner;
 using ZeDelivery.Backend.Challenge.Application.UseCases.FindPartner;
+using ZeDelivery.Backend.Challenge.Application.UseCases.SearchNearestPartner;
 
 namespace ZeDelivery.Backend.Challenge.Api
 {
@@ -22,6 +24,10 @@ namespace ZeDelivery.Backend.Challenge.Api
             services.AddScoped<IFindPartnerOutputPort, FindPartnerPresenter>();
             services.AddScoped<FindPartnerPresenter>();
             services.AddScoped(typeof(IFindPartnerOutputPort), sp => sp.GetRequiredService<FindPartnerPresenter>());
+
+            services.AddScoped<ISearchNearestPartnerOutputPort, SearchNearestPartnerPresenter>();
+            services.AddScoped<SearchNearestPartnerPresenter>();
+            services.AddScoped(typeof(ISearchNearestPartnerOutputPort), sp => sp.GetRequiredService<SearchNearestPartnerPresenter>());
 
             return services;
         }
