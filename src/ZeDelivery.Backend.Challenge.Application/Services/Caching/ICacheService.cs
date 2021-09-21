@@ -10,6 +10,5 @@ namespace ZeDelivery.Backend.Challenge.Application.Services.Caching
     {
         public Task<CacheEntry<T>> TryGetAsync<T>(string key);
         public Task TrySetAsync<T>(string key, T value);
-        // TODO: implementar delete
     }
 }

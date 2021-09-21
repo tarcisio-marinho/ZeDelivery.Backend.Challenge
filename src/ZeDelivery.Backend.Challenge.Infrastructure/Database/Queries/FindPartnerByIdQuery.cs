@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -14,10 +15,12 @@ namespace ZeDelivery.Backend.Challenge.Infrastructure.Database.Queries
     public class FindPartnerByIdQuery : IFindPartnerByIdQuery
     {
         private readonly string ConnectionString;
+        private readonly ILogger<FindPartnerByIdQuery> logger;
 
-        public FindPartnerByIdQuery(IConfiguration configuration)
+        public FindPartnerByIdQuery(IConfiguration configuration, ILogger<FindPartnerByIdQuery> logger)
         {
             ConnectionString = configuration.GetConnectionString("SqlConnection");
+            this.logger = logger;
         }
 
         public async Task<Partner> ExecuteAsync(string id)
@@ -50,6 +53,8 @@ namespace ZeDelivery.Backend.Challenge.Infrastructure.Database.Queries
             }
             catch (Exception e)
             {
+                logger.LogError(e, $"Error finding partner by Id query");
+
                 return null;
             }
         }

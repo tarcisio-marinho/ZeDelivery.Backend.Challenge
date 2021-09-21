@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -20,16 +21,19 @@ namespace ZeDelivery.Backend.Challenge.Application.UseCases.FindPartner
         private readonly IValidator<FindPartnerInput> validator;
         private readonly IFindPartnerOutputPort outputPort;
         private readonly IFindPartnerByIdQuery findPartnerQuery;
+        private readonly ILogger<FindPartnerUseCase> logger;
         public FindPartnerUseCase(
             ICacheService cacheService,
             IValidator<FindPartnerInput> validator,
             IFindPartnerOutputPort outputPort,
-            IFindPartnerByIdQuery findPartnerQuery)
+            IFindPartnerByIdQuery findPartnerQuery, 
+            ILogger<FindPartnerUseCase> logger)
         {
             this.cacheService = cacheService;
             this.validator = validator;
             this.outputPort = outputPort;
             this.findPartnerQuery = findPartnerQuery;
+            this.logger = logger;
         }
 
         public async Task ExecuteAsync(FindPartnerInput input)
@@ -43,10 +47,12 @@ namespace ZeDelivery.Backend.Challenge.Application.UseCases.FindPartner
                 return;
             }
 
+
             var partnerDtoResponse = await cacheService.TryGetAsync<PartnerDto>(input.Id);
 
             if (partnerDtoResponse.Success)
             {
+                logger.LogInformation($"Recovered from cache, document: {partnerDtoResponse.Value.Document}");
                 outputPort.PublishPartnerFound(partnerDtoResponse.Value.ToPartner());
                 return;
             }

@@ -18,28 +18,29 @@ namespace ZeDelivery.Backend.Challenge.Api.UseCases.CreatePartner
         public CreatePartnerPresenter(ILogger<CreatePartnerPresenter> logger)
         {
             this.logger = logger;
-            logger.LogInformation($"instanciado presenter: {Guid.NewGuid().ToString()}");
         }
 
         public async void PublishPartnerCreated()
         {
-            logger.LogInformation("Partner created !");
+            logger.LogInformation("Presenter: Partner created !");
             Result = new OkResult();
         }
 
         public async void PublishValidationErros(Notification notification) 
         {
+            logger.LogInformation("Presenter: Validation Errors !");
             Result = new UnprocessableEntityObjectResult(new { Errors = notification.GetErrors() });
         }
 
         public async void PublishDuplicatedPartner()
         {
+            logger.LogInformation("Presenter: Duplicated partner !");
             Result = new BadRequestObjectResult(new { Error = "Partner already registered!" });
         }
 
         public async void PublishInternalServerError()
         {
-            logger.LogInformation("Unknown Error occurred!");
+            logger.LogInformation("Presenter: Unknown Error occurred!");
             Result = new BadRequestObjectResult(new { Error = "Unknown Server Error"})
             {
                 StatusCode = 500

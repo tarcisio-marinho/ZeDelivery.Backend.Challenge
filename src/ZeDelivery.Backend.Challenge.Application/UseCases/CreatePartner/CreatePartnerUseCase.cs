@@ -48,7 +48,7 @@ namespace ZeDelivery.Backend.Challenge.Application.UseCases.CreatePartner
                 return;
             }
 
-            var partnerExists = await checkIfPartnerExistsquery.ExecuteAsync(input.Id); // TODO: check for Document also
+            var partnerExists = await checkIfPartnerExistsquery.ExecuteAsync(input.Id); 
             if (partnerExists)
             {
                 logger.LogDebug($"Partner {input.Id} already registered !");

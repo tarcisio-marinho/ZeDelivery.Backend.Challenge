@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,11 @@ namespace ZeDelivery.Backend.Challenge.Infrastructure.Database.Queries
     public class GetNearestPartnerInMyAreaQuery : IGetNearestPartnerInMyAreaQuery
     {
         private readonly string ConnectionString;
-        public GetNearestPartnerInMyAreaQuery(IConfiguration configuration)
+        private readonly ILogger<GetNearestPartnerInMyAreaQuery> logger;
+        public GetNearestPartnerInMyAreaQuery(IConfiguration configuration, ILogger<GetNearestPartnerInMyAreaQuery> logger)
         {
             ConnectionString = configuration.GetConnectionString("SqlConnection");
+            this.logger = logger;
         }
 
         public async Task<Partner> ExecuteAsync(Point point)
@@ -50,6 +53,7 @@ namespace ZeDelivery.Backend.Challenge.Infrastructure.Database.Queries
             }
             catch (Exception e)
             {
+                logger.LogError(e, $"Error getting nearest partner query");
                 return default;
             }
         }

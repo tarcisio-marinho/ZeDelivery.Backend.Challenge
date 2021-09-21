@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -16,10 +17,12 @@ namespace ZeDelivery.Backend.Challenge.Infrastructure.Database.Queries
     public class InsertNewPartnerQuery : IInsertNewPartnerQuery
     {
         private readonly string ConnectionString;
+        private readonly ILogger<InsertNewPartnerQuery> logger;
 
-        public InsertNewPartnerQuery(IConfiguration configuration)
+        public InsertNewPartnerQuery(IConfiguration configuration, ILogger<InsertNewPartnerQuery> logger)
         {
-            ConnectionString = configuration.GetConnectionString("SqlConnection"); 
+            ConnectionString = configuration.GetConnectionString("SqlConnection");
+            this.logger = logger;
         }
 
         public async Task<bool> ExecuteAsync(Partner partner)
@@ -66,6 +69,8 @@ namespace ZeDelivery.Backend.Challenge.Infrastructure.Database.Queries
             }
             catch(Exception e)
             {
+                logger.LogError(e, $"Error inserting new partner query");
+
                 return false;
             }
         }

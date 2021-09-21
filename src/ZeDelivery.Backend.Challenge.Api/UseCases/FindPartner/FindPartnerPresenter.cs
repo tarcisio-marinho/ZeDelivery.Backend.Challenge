@@ -23,6 +23,8 @@ namespace ZeDelivery.Backend.Challenge.Api.UseCases.FindPartner
 
         public void PublishPartnerFound(Partner partner)
         {
+            logger.LogInformation("Presenter: Parnet found!");
+
             var response = new
             {
                 Id = partner.Id,
@@ -46,12 +48,13 @@ namespace ZeDelivery.Backend.Challenge.Api.UseCases.FindPartner
 
         public async void PublishValidationErros(Notification notification)
         {
+            logger.LogInformation("Presenter: Validation Errors occurred!");
             Result = new UnprocessableEntityObjectResult(new { Errors = notification.GetErrors() });
         }
 
         public async void PublishInternalServerError()
         {
-            logger.LogInformation("Unknown Error occurred!");
+            logger.LogInformation("Presenter: Unknown Error occurred!");
             Result = new BadRequestObjectResult(new { Error = "Unknown Server Error" })
             {
                 StatusCode = 500
@@ -60,6 +63,7 @@ namespace ZeDelivery.Backend.Challenge.Api.UseCases.FindPartner
 
         public void PublishPartnerNotFound()
         {
+            logger.LogInformation("Presenter: Partner Not Found");
             Result = new NotFoundResult();
         }
     }

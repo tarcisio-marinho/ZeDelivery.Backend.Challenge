@@ -17,6 +17,7 @@ namespace ZeDelivery.Backend.Challenge.Api.UseCases.SearchNearestPartner
 
         public void PublishNearestPartner(Partner partner)
         {
+            logger.LogInformation("Presenter: nearest published!");
             var response = new
             {
                 Id = partner.Id,
@@ -40,12 +41,13 @@ namespace ZeDelivery.Backend.Challenge.Api.UseCases.SearchNearestPartner
 
         public async void PublishValidationErros(Notification notification)
         {
+            logger.LogInformation("Presenter: Validation Errors occurred!");
             Result = new UnprocessableEntityObjectResult(new { Errors = notification.GetErrors() });
         }
 
         public async void PublishInternalServerError()
         {
-            logger.LogInformation("Unknown Error occurred!");
+            logger.LogInformation("Presenter: Unknown Error occurred!");
             Result = new BadRequestObjectResult(new { Error = "Unknown Server Error" })
             {
                 StatusCode = 500
@@ -54,6 +56,7 @@ namespace ZeDelivery.Backend.Challenge.Api.UseCases.SearchNearestPartner
 
         public void PublishNoNearestPartnerFound()
         {
+            logger.LogInformation("Presenter: No nearest partner found!");
             Result = new NotFoundResult();
         }
     }

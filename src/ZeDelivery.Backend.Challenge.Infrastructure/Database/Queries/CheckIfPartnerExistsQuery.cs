@@ -1,5 +1,6 @@
 ﻿using Dapper;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
@@ -14,9 +15,12 @@ namespace ZeDelivery.Backend.Challenge.Infrastructure.Database.Queries
     public class CheckIfPartnerExistsQuery : ICheckIfPartnerExistsQuery
     {
         private readonly string ConnectionString;
-        public CheckIfPartnerExistsQuery(IConfiguration configuration)
+        private readonly ILogger<CheckIfPartnerExistsQuery> logger;
+
+        public CheckIfPartnerExistsQuery(IConfiguration configuration, ILogger<CheckIfPartnerExistsQuery> logger)
         {
-            ConnectionString = configuration.GetConnectionString("SqlConnection"); 
+            ConnectionString = configuration.GetConnectionString("SqlConnection");
+            this.logger = logger;
         }
 
         public async Task<bool> ExecuteAsync(string id)
@@ -42,6 +46,8 @@ namespace ZeDelivery.Backend.Challenge.Infrastructure.Database.Queries
             }
             catch (Exception e)
             {
+                logger.LogError(e, $"Error Checking if partner exists query");
+
                 return false;
             }
         }
