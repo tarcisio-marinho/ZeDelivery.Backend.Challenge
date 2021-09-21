@@ -2,6 +2,7 @@
 
 Repositório referente ao desafio de backend da Zé Delivery. O desafio pode ser encontrado aqui: https://github.com/ZXVentures/ze-code-challenges/blob/master/backend.md
 
+  Foram escolhidas as tecnologias C# .NET e MySQL.
 
 
 # Decisões arquiteturais
@@ -62,6 +63,10 @@ Para a serialização de dados, decidi utilizar o [MsgPack](https://msgpack.org)
 [Para comparação com outros serializadores](https://medium.com/@maximn/serialization-performance-comparison-xml-binary-json-p-ad737545d227):
 ![Alt text](images/msgpack.png "Title")
 
+# Testes
+ - Inserir exemplos do BDD
+ - Rodar a cobertura do ncrunch 
+
 # Cross Plataform
 
 Para cumprir com o requisito de ser cross plataform, decidi utilizar o Docker e DockerCompose para subir a aplicação e os serviços necessários (Caching e Banco de dados). Bastando apenas executar o comando em ambientes Windows/Linux:
@@ -76,4 +81,123 @@ docker-compose up -d
  - Generics
 
 
- # Problemas encontrados
+ # Como rodar a aplicação:
+  
+  - É necessário instalar a SDK .NET 5.0:
+```
+  https://dotnet.microsoft.com/download
+```
+
+  Após instalar, rodar os comandos:
+
+- Entrar na pasta da Api de inicialização do projeto:
+
+```
+cd src\ZeDelivery.Backend.Challenge.Api
+```
+![Alt text](images/1.png "Title")
+
+
+- Restaurar os pacotes Nuget:
+```
+dotnet restore
+```
+![Alt text](images/2.png "Title")
+
+- Buildar a aplicação:
+```
+dotnet build
+```
+![Alt text](images/3.png "Title")
+
+
+  - Para subir os serviços de Banco e Redis é necessário rodar o docker compose dentro do diretório do projeto. Retornar duas pastas: 
+```
+cd ..;
+cd ..;
+docker-compose up -d;
+```
+![Alt text](images/4.png "Title")
+![Alt text](images/5.png "Title")
+
+
+
+- Verificar que os serviços estão rodando:
+
+```
+docker ps;
+```
+![Alt text](images/6.png "Title")
+
+
+- É necessário criar o banco de dados e a tabela. Infelizmente não consegui incluir o script de criação do banco na subida do docker-compose. Para criar o banco, abrir Adminer no endereço: 
+```
+http://localhost:8080
+```
+![Alt text](images/7.png "Title")
+
+
+- Rodar o script da pasta: `scripts/01_CREATE_DATABASE_SCRIPT.sql`:
+```
+CREATE DATABASE IF NOT EXISTS ZeDeliveryBackendChallenge;
+USE ZeDeliveryBackendChallenge;
+CREATE TABLE `partner` (
+  `Id` varchar(255) PRIMARY KEY,
+  `TradingName` varchar(255),
+  `OwnerName` varchar(255),
+  `Document` varchar(18) UNIQUE,
+  `CoverageAreaType` varchar(255),
+  `CoverageAreaCoordinates` POLYGON,
+  `AddressType` varchar(255),
+  `AddressCoordinates` POINT
+);
+
+```
+![Alt text](images/8.png "Title")
+![Alt text](images/9.png "Title")
+
+Criando assim, a tabela necessária para a aplicação rodar.
+
+
+- Por último, para rodar a aplicação:
+
+- - Entrar na pasta da Api de inicialização do projeto:
+
+```
+cd src\ZeDelivery.Backend.Challenge.Api
+```
+![Alt text](images/1.png "Title")
+
+ - - Rodar a aplicação: 
+```
+dotnet run
+```
+![Alt text](images/10.png "Title")
+
+
+- Acessar o swagger da aplicação:
+
+```
+https://localhost:5001/swagger/index.html
+```
+![Alt text](images/11.png "Title")
+
+# Rodando os casos de uso 
+Para o exemplo abaixo, Utilizei o partner do arquivo: `data/single_test.json`
+
+- Inserir novo partner:
+![Alt text](images/12.png "Title")
+
+- Buscar partner por Id:
+![Alt text](images/13.png "Title")
+
+- Buscar partnet mais proximo:
+![Alt text](images/14.png "Title")
+
+
+
+# Melhorias futuras:
+
+  Infelizmente não consegui fazer o cointainer da aplicação rodar em conjunto com os outros serviços no docker compose. Está ocorrendo erro de conexão. Dificultando a instalação.
+
+  Também ficou faltando subir o banco já com seu script de criação, para não necessitar criar o banco e a tabela na mão.
