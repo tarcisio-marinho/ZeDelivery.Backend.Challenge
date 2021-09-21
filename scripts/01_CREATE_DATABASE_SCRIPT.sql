@@ -1,5 +1,5 @@
-CREATE DATABASE "ZeDelivery.Backend.Challenge";
-
+CREATE DATABASE IF NOT EXISTS ZeDeliveryBackendChallenge;
+USE ZeDeliveryBackendChallenge;
 CREATE TABLE `partner` (
   `Id` varchar(255) PRIMARY KEY,
   `TradingName` varchar(255),
