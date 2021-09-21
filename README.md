@@ -134,6 +134,13 @@ docker ps;
 ```
 http://localhost:8080
 ```
+
+Com os seguintes dados de login:
+```
+Servidor: mysqlsrv
+Usuário: root
+Senha: MySql2019!
+```
 ![Alt text](images/7.png "Title")
 
 
