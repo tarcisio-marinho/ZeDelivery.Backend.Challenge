@@ -4,11 +4,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using System.Diagnostics.CodeAnalysis;
 using ZeDelivery.Backend.Challenge.Application;
 using ZeDelivery.Backend.Challenge.Infrastructure;
 
 namespace ZeDelivery.Backend.Challenge.Api
 {
+    [ExcludeFromCodeCoverage]
     public class Startup
     {
         public Startup(IConfiguration configuration)

@@ -2,6 +2,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ using ZeDelivery.Backend.Challenge.Application.UseCases.SearchNearestPartner.Inp
 
 namespace ZeDelivery.Backend.Challenge.Application
 {
+    [ExcludeFromCodeCoverage]
     public static class DependencyInjectionExtensions
     {
         public static IServiceCollection AddApplicationValidators(this IServiceCollection services)

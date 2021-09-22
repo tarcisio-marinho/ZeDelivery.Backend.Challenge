@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ using ZeDelivery.Backend.Challenge.Infrastructure.Services.Caching;
 
 namespace ZeDelivery.Backend.Challenge.Infrastructure
 {
+    [ExcludeFromCodeCoverage]
     public static class DependencyInjectionExtensions
     {
         public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)

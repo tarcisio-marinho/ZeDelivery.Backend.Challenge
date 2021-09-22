@@ -18,8 +18,4 @@
     <ProjectReference Include="..\ZeDelivery.Backend.Challenge.Infrastructure\ZeDelivery.Backend.Challenge.Infrastructure.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="UseCases\SearchNearestPartner\Contract\" />
-  </ItemGroup>
-
 </Project>

@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using ZeDelivery.Backend.Challenge.Api.UseCases.CreatePartner;
@@ -12,6 +13,7 @@ using ZeDelivery.Backend.Challenge.Domain.Entities;
 
 namespace ZeDelivery.Backend.Challenge.Api.UseCases.FindPartner
 {
+    [ExcludeFromCodeCoverage]
     public class FindPartnerPresenter : IFindPartnerOutputPort
     {
         private readonly ILogger<FindPartnerPresenter> logger;

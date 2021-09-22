@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 using ZeDelivery.Backend.Challenge.Application.Shared;
@@ -9,6 +10,7 @@ using ZeDelivery.Backend.Challenge.Application.UseCases.CreatePartner;
 
 namespace ZeDelivery.Backend.Challenge.Api.UseCases.CreatePartner
 {
+    [ExcludeFromCodeCoverage]
     public class CreatePartnerPresenter : ICreatePartnerOutputPort
     {
 

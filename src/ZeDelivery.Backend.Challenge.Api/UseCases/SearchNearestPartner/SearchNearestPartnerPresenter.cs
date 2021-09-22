@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Diagnostics.CodeAnalysis;
 using ZeDelivery.Backend.Challenge.Application.Shared;
 using ZeDelivery.Backend.Challenge.Application.UseCases.SearchNearestPartner;
 using ZeDelivery.Backend.Challenge.Domain.Entities;
 
 namespace ZeDelivery.Backend.Challenge.Api.UseCases.SearchNearestPartner
 {
+    [ExcludeFromCodeCoverage]
     public class SearchNearestPartnerPresenter : ISearchNearestPartnerOutputPort
     {
         private readonly ILogger<SearchNearestPartnerPresenter> logger;

@@ -26,6 +26,5 @@ namespace ZeDelivery.Backend.Challenge.Application.Shared
 
             return messages;
         }
-
     }
 }

@@ -39,6 +39,12 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
+          "dependencies": {
+            "SpecFlow": {
+              "target": "Package",
+              "version": "[3.9.22, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

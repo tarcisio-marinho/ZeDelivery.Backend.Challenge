@@ -1,5 +1,8 @@
-﻿namespace ZeDelivery.Backend.Challenge.Application.Services.Caching
+﻿using System.Diagnostics.CodeAnalysis;
+
+namespace ZeDelivery.Backend.Challenge.Application.Services.Caching
 {
+    [ExcludeFromCodeCoverage]
     public class CacheEntry<T>
     {
         public CacheEntry(T value, bool success)

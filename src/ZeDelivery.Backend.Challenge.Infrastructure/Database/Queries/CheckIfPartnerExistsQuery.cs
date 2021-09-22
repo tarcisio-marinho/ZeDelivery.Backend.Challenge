@@ -5,6 +5,7 @@ using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +13,7 @@ using ZeDelivery.Backend.Challenge.Domain.Queries;
 
 namespace ZeDelivery.Backend.Challenge.Infrastructure.Database.Queries
 {
+    [ExcludeFromCodeCoverage]
     public class CheckIfPartnerExistsQuery : ICheckIfPartnerExistsQuery
     {
         private readonly string ConnectionString;

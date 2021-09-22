@@ -1,9 +1,11 @@
 ﻿using MsgPack.Serialization;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 
 namespace ZeDelivery.Backend.Challenge.Infrastructure.Services.Caching
 {
+    [ExcludeFromCodeCoverage]
     public static class MsgPackSerialization 
     {
         public static string Serialize<T>(T @object)

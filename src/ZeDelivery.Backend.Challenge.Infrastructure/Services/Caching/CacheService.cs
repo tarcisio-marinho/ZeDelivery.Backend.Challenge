@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using StackExchange.Redis;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ using ZeDelivery.Backend.Challenge.Application.Services.Caching;
 
 namespace ZeDelivery.Backend.Challenge.Infrastructure.Services.Caching
 {
+    [ExcludeFromCodeCoverage]
     public class CacheService : ICacheService
     {
         private readonly ILogger<CacheService> logger;
