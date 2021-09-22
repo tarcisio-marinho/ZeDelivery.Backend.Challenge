@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{13E17EE1
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZeDelivery.Backend.Challenge.Api", "src\ZeDelivery.Backend.Challenge.Api\ZeDelivery.Backend.Challenge.Api.csproj", "{7DF0E795-F2B0-4B81-B173-7064C783DE13}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZeDelivery.Backend.Challenge.Tests.Units", "ZeDelivery.Backend.Challenge.Tests.Units\ZeDelivery.Backend.Challenge.Tests.Units.csproj", "{20739AB4-7695-4DE2-AB7B-7F50EFFF392C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZeDelivery.Backend.Challenge.Tests.Units", "tests\ZeDelivery.Backend.Challenge.Tests.Units\ZeDelivery.Backend.Challenge.Tests.Units.csproj", "{20739AB4-7695-4DE2-AB7B-7F50EFFF392C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

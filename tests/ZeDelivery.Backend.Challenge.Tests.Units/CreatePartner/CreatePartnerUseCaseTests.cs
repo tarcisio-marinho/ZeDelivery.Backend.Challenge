@@ -1,19 +1,22 @@
-﻿using FluentValidation;
-using Microsoft.Extensions.Logging;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using NSubstitute;
-using System;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
-using TechTalk.SpecFlow;
+
+using NUnit.Framework;
+using FluentValidation;
+using Microsoft.Extensions.Logging;
+using NSubstitute;
 using ZeDelivery.Backend.Challenge.Application.Services.Caching;
 using ZeDelivery.Backend.Challenge.Application.UseCases.CreatePartner;
-using ZeDelivery.Backend.Challenge.Domain.Entities;
 using ZeDelivery.Backend.Challenge.Domain.Queries;
+using ZeDelivery.Backend.Challenge.Domain.Entities;
 
-namespace ZeDelivery.Backend.Challenge.Tests.Unit.CreatePartner
+namespace ZeDelivery.Backend.Challenge.Tests.Units.CreatePartner
 {
-    [Binding]
-    public class CreatePartnerUseCaseSteps
+    [TestFixture]
+    public class CreatePartnerUseCaseTests
     {
         private readonly CreatePartnerUseCase useCase;
         private readonly ICreatePartnerOutputPort outputPort;
@@ -24,7 +27,8 @@ namespace ZeDelivery.Backend.Challenge.Tests.Unit.CreatePartner
         private readonly ICacheService cacheService;
         private CreatePartnerInput Partner;
         private bool Success;
-        public CreatePartnerUseCaseSteps()
+
+        public CreatePartnerUseCaseTests()
         {
             outputPort = Substitute.For<ICreatePartnerOutputPort>();
             validator = Substitute.For<IValidator<CreatePartnerInput>>();
@@ -36,11 +40,11 @@ namespace ZeDelivery.Backend.Challenge.Tests.Unit.CreatePartner
             useCase = new CreatePartnerUseCase(outputPort, validator, logger, insertNewPartnerquery, checkIfPartnerExistsquery, cacheService);
         }
 
-        [Given(@"a valid partner as input")]
+
         public void GivenAValidPartnerAsInput()
         {
 
-            Partner = new CreatePartnerInput 
+            Partner = new CreatePartnerInput
             {
                 Id = "13",
                 Document = "124313241243214",
@@ -59,36 +63,66 @@ namespace ZeDelivery.Backend.Challenge.Tests.Unit.CreatePartner
             };
         }
 
-        [Given(@"no errors occurs at input data validation")]
+
         public void GivenNoErrorsOccursAtInputDataValidation()
         {
             var mock = new FluentValidation.Results.ValidationResult { };
             validator.ValidateAsync(Partner).Returns(mock);
         }
 
-        [Given(@"the use case is executed")]
+
         public async Task GivenTheUseCaseIsExecuted()
         {
             await useCase.ExecuteAsync(Partner);
         }
 
-        [Given(@"the partner has not already registered")]
+
         public void GivenThePartnerHasNotAlreadyRegistered()
         {
             checkIfPartnerExistsquery.ExecuteAsync(Arg.Any<string>()).Returns(false);
         }
 
-        [When(@"the partner is inserted in the database")]
+        public void GivenThePartnerHasAlreadyRegistered()
+        {
+            checkIfPartnerExistsquery.ExecuteAsync(Arg.Any<string>()).Returns(true);
+        }
+
         public void WhenThePartnerIsInsertedInTheDatabase()
         {
             insertNewPartnerquery.ExecuteAsync(Arg.Any<Partner>()).Returns(true);
         }
 
-
-        [Then(@"the result should be partner created")]
-        public void ThenTheResultShouldBePartnerCreated()
+        public void WhenTheResultShouldBePartnerCreated()
         {
             outputPort.Received().PublishPartnerCreated();
+        }
+
+        public void WhenTheResultShouldBePartnerDuplicated()
+        {
+            outputPort.Received().PublishDuplicatedPartner();
+        }
+        
+
+        [Test]
+        public void InsertNewPartnerSuccessfully()
+        {
+            GivenAValidPartnerAsInput();
+            GivenNoErrorsOccursAtInputDataValidation();
+            GivenThePartnerHasNotAlreadyRegistered();
+            WhenThePartnerIsInsertedInTheDatabase();
+            GivenTheUseCaseIsExecuted();
+            WhenTheResultShouldBePartnerCreated();
+        }
+
+        [Test]
+        public void ParnerAlreadyExists()
+        {
+            GivenAValidPartnerAsInput();
+            GivenNoErrorsOccursAtInputDataValidation();
+            GivenThePartnerHasAlreadyRegistered();
+            WhenThePartnerIsInsertedInTheDatabase();
+            GivenTheUseCaseIsExecuted();
+            WhenTheResultShouldBePartnerDuplicated();
         }
     }
 }

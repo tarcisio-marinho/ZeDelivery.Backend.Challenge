@@ -68,12 +68,17 @@ Para a serialização de dados, decidi utilizar o [MsgPack](https://msgpack.org)
  `CreatePartner` e `FindPartner`.
 
  Tentei utilizar o padrão BDD com Specflow, porém tive alguns problemas para rodar. Decidi então migrar o código baseado em comportamento para um código unitário clássico. Pode ver exemplo de um cenário abaixo:
- 
+
 ![Alt text](images/16.png "Title")
 
 Dessa forma, cobri alguns fluxos e deixei outros sem implementação para evidenciar a facilidade de escrever novos testes unitários.
 
 ![Alt text](images/17.png "Title")
+
+Fluxos cobertos:
+
+![Alt text](images/18.png "Title")
+
 
 
 
