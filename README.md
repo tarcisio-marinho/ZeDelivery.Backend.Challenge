@@ -64,7 +64,7 @@ Para a serialização de dados, decidi utilizar o [MsgPack](https://msgpack.org)
 ![Alt text](images/msgpack.png "Title")
 
 # Testes
- - Implementei alguns cenários de testes para dois os dois casos de uso: 
+ Implementei alguns cenários de testes para dois dos três casos de uso: 
  `CreatePartner` e `FindPartner`.
 
  Tentei utilizar o padrão BDD com Specflow, porém tive alguns problemas para rodar. Decidi então migrar o código baseado em comportamento para um código unitário clássico. Pode ver exemplo de um cenário abaixo:
@@ -88,13 +88,6 @@ Para cumprir com o requisito de ser cross plataform, decidi utilizar o Docker e 
 ```
 docker-compose up -d
 ```
-
-## Lista de padrões de projeto utilizados:
- - Dependency Injection
- - Fluent Builder ([Fluent Validation](https://fluentvalidation.net))
- - Notification
- - Generics
-
 
  # Como rodar a aplicação:
   
