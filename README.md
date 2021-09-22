@@ -9,7 +9,7 @@ Repositório referente ao desafio de backend da Zé Delivery. O desafio pode ser
 
   Para o pilar de *Performance*, as buscas necessitam ser rápidas, é fundamental realizar tais buscas no banco e utilizando o [Redis](https://redis.io) como ferramenta de Caching para não bater no banco toda hora, utilizando [MsgPack](https://msgpack.org) para serializar os dados de forma mais otimizada.
 
-  Para o pilar *Testability*, decidi testar o código de forma unitária utilizando [BDD](https://pt.wikipedia.org/wiki/Behavior_Driven_Development) e a biblioteca [SpecFlow](https://specflow.org), para diminuir a quantidade de código de teste, aumentando assim a reusabilidade, facilitando na leitura e escrita de novos testes.
+  Para o pilar *Testability*, decidi testar o código de forma unitária utilizando a biblioteca [NUnit](https://nunit.org) e [NSubstitute](https://nsubstitute.github.io).
 
   Para o pilar *Maintainability* e *Separation of concerns* decidi estruturar a arquitetura do código seguindo o padrão arquitetural [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) seguindo bem o desenho abaixo: 
   ![Alt text](images/cleanarch.jpg "Title")
@@ -64,8 +64,18 @@ Para a serialização de dados, decidi utilizar o [MsgPack](https://msgpack.org)
 ![Alt text](images/msgpack.png "Title")
 
 # Testes
- - Inserir exemplos do BDD
- - Rodar a cobertura do ncrunch 
+ - Implementei alguns cenários de testes para dois os dois casos de uso: 
+ `CreatePartner` e `FindPartner`.
+
+ Tentei utilizar o padrão BDD com Specflow, porém tive alguns problemas para rodar. Decidi então migrar o código baseado em comportamento para um código unitário clássico. Pode ver exemplo de um cenário abaixo:
+ 
+![Alt text](images/16.png "Title")
+
+Dessa forma, cobri alguns fluxos e deixei outros sem implementação para evidenciar a facilidade de escrever novos testes unitários.
+
+![Alt text](images/17.png "Title")
+
+
 
 # Cross Plataform
 
