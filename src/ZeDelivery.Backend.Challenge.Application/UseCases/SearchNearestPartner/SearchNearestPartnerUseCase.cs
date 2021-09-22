@@ -39,7 +39,6 @@ namespace ZeDelivery.Backend.Challenge.Application.UseCases.SearchNearestPartner
             }
 
             var cacheKey = $"{input.Latitude}{input.Longitude}";
-            // TODO: implementar cenário caso não ache nenhum parceiro perto
 
             var cachedPartner = await cacheService.TryGetAsync<PartnerDto>(cacheKey);
             
